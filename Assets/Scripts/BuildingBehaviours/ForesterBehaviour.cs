@@ -33,7 +33,6 @@ public class ForesterBehaviour : MonoBehaviour
 			StartCoroutine(SpawnTree());
 		}
 		TreeCount = transform.childCount - _naturalTrees;
-		Debug.Log(TreeCount);
 	}
 
 	private IEnumerator SpawnTree()
