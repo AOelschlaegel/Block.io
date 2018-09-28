@@ -13,6 +13,8 @@ public class ForesterBehaviour : MonoBehaviour
 	private float _range = 20;
 	private int _tree;
 
+	private float _posY;
+
 	private int _naturalTrees;
 
 	private bool _isSpawning;
@@ -23,6 +25,18 @@ public class ForesterBehaviour : MonoBehaviour
 	{
 		_position = transform.position;
 		_size = transform.localScale;
+
+		RaycastHit hit;
+
+		if (Physics.Raycast(transform.position, -Vector3.up, out hit))
+		{
+			if (hit.collider.name == "ground")
+			{
+				_posY = hit.point.y + transform.localScale.z/2;
+			}
+		}
+
+		transform.position = new Vector3(transform.position.x, _posY + 1, transform.position.z);
 	}
 
 	private void Update()

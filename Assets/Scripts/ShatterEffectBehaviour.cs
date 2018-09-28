@@ -7,6 +7,8 @@ public class ShatterEffectBehaviour : MonoBehaviour
 	private GameObject[] _collecters;
 	private bool _isShattered = false;
 
+	private float _posY;
+
 	public int ChildCount;
 
 	private void Start()
@@ -14,6 +16,18 @@ public class ShatterEffectBehaviour : MonoBehaviour
 		_player = GameObject.Find("Player");
 		_collecters = GameObject.FindGameObjectsWithTag("collecter");
 		ChildCount = transform.childCount;
+
+		RaycastHit hit;
+
+		if (Physics.Raycast(transform.position, -Vector3.up, out hit))
+		{
+			if (hit.collider.name == "ground")
+			{
+				_posY = hit.point.y;
+			}
+		}
+
+		transform.position = new Vector3(transform.position.x, _posY + 1, transform.position.z);
 	}
 
 	private void OnTriggerEnter(Collider collider)
